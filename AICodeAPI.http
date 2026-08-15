@@ -1,0 +1,6 @@
+@AICodeAPI_HostAddress = http://localhost:5108
+
+GET {{AICodeAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
