@@ -1,0 +1,41 @@
+# Build artifacts
+bin/
+obj/
+out/
+
+# Runtime files
+*.db
+*.sqlite
+*.sqlite3
+*.log
+
+# IDE and editor files
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*.user
+*.userprefs
+
+# OS files
+.DS_Store
+Thumbs.db
+.git/
+.gitignore
+
+# NuGet
+.nuget/
+
+# Test results
+TestResults/
+coverage/
+
+# Node modules (if using frontend)
+node_modules/
+npm-debug.log
+
+# Environment files
+.env
+.env.local
+launchSettings.json

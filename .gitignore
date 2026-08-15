@@ -1,0 +1,77 @@
+# Visual Studio
+.vs/
+.vscode/
+*.sln.docstates
+*.user
+*.userosscache
+*.sln.docstates
+.vscode/
+
+# Build results
+bin/
+obj/
+out/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# Local NuGet package folder
+packages/
+
+# Visual Studio files
+*.VisualStudio.xml
+*.DotSettings
+*.DotSettings.user
+
+# Rider
+.idea/
+*.sln.iml
+
+# User-specific files
+*.rsuser
+
+# Test Results
+TestResults/
+coverage/
+
+# Runtime files
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+launchSettings.json
+
+# OS files
+.DS_Store
+Thumbs.db
+.git/
+
+# Node modules (for future frontend integration)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build artifacts
+/publish/
+/dist/
+/build/
+
+# IDE specific
+.editorconfig
+
+# LocalDB
+*.mdf
+*.ldf
+
+# Docker
+docker-compose.override.yml

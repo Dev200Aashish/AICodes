@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AICodeAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7562bc672898083db8517451a34e30086db5f246")]
 [assembly: System.Reflection.AssemblyProductAttribute("AICodeAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AICodeAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

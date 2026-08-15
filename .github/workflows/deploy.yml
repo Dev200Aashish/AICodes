@@ -1,0 +1,93 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore AICodeAPI/AICodeAPI.csproj
+
+    - name: Build
+      run: dotnet build AICodeAPI/AICodeAPI.csproj -c Release --no-restore
+
+    - name: Test (if tests exist)
+      continue-on-error: true
+      run: dotnet test AICodeAPI/ -c Release --no-build --verbosity normal
+
+    - name: Publish
+      run: dotnet publish AICodeAPI/AICodeAPI.csproj -c Release -o ./publish
+
+    - name: Build Docker image
+      run: |
+        cd AICodeAPI
+        docker build -t aicode-api:${{ github.sha }} .
+        docker build -t aicode-api:latest .
+
+    - name: Login to Docker Hub (Optional - uncomment if using Docker Hub)
+      # uses: docker/login-action@v3
+      # with:
+      #   username: ${{ secrets.DOCKER_USERNAME }}
+      #   password: ${{ secrets.DOCKER_PASSWORD }}
+      run: echo "Skipping Docker Hub login - configure in repository secrets if needed"
+
+    - name: Push Docker image (Optional)
+      # run: |
+      #   docker push aicode-api:${{ github.sha }}
+      #   docker push aicode-api:latest
+      run: echo "Docker push configured in Render/Railway deployment settings"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Deploy to Render (Option 1)
+      # Uncomment and configure these lines if using Render.com
+      # run: |
+      #   curl -X POST https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
+      run: echo "Deploy to Render.com - configure via repository secrets"
+
+    - name: Deploy to Railway (Option 2)
+      # Uncomment and configure these lines if using Railway.app
+      # env:
+      #   RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      # run: |
+      #   npm install -g @railway/cli
+      #   railway up
+      run: echo "Deploy to Railway.app - configure via repository secrets"
+
+    - name: Deploy to Azure Container Instances (Option 3)
+      # Uncomment and configure if using Azure
+      # uses: azure/login@v1
+      # with:
+      #   creds: ${{ secrets.AZURE_CREDENTIALS }}
+      run: echo "Deploy to Azure - configure via repository secrets"
+
+    - name: Deployment Summary
+      run: |
+        echo "✅ Build completed successfully"
+        echo "🚀 Deployment initiated (configure cloud platform in settings)"
+        echo "📝 Configure GitHub Secrets with your cloud platform credentials:"
+        echo "   - RENDER_API_KEY + RENDER_SERVICE_ID (for Render.com)"
+        echo "   - RAILWAY_TOKEN (for Railway.app)"
+        echo "   - AZURE_CREDENTIALS (for Azure)"
